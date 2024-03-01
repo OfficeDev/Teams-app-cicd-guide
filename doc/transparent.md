@@ -2,11 +2,11 @@
 This document provide guidance on how to setup CI/CD pipeline for teams app created with the Teams Toolkit using your custom approach.
 
 ## Custom Deployment Approach
-The most convenient way to deploy teams app is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. If you're unable to leverage the teamsapp CLI within your pipeline, you can create a custom deployment process tailored to your needs.
+The most convenient way to deploy teams app to Azure is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. If you're unable to leverage the teamsapp CLI within your pipeline, you can create a custom deployment process tailored to your needs.
 
 The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage and this stage contains 2 parts: build and deploy. What you need to do is rewritting these actions into your own way.
 
-Taking basic bot typescript project as an example, it's teamsapp.yml's deploy stage is as following:
+Taking basic bot typescript project as an example, its teamsapp.yml's deploy stage is as following:
 ```yml
 deploy:
   # Run npm command
@@ -32,8 +32,11 @@ deploy:
       # or add it to your environment variable file.
       resourceId: ${{BOT_AZURE_APP_SERVICE_RESOURCE_ID}}
 ```
-These actions will first run `npm build` to build the project, then deploy the code to Azure app service. You can rewrite these actions in your CI/CD pipleline in your own way. 
+These actions do the following things:
+- run `npm install` and `npm build` to build the project.
+- deploy code to Azure app service.
 
+You can rewrite these actions in your CI/CD pipeline in your own way. 
 Below is an example of using GitHub official actions:
 ```yml
     # build
@@ -64,14 +67,15 @@ Below is an example of using GitHub official actions:
         app-name: ${{ vars.AZURE_WEBAPP_NAME }}
         package: deploy.zip
 ```
-Below are some Official actions for your reference:
+
+Currently, the Teams Toolkit supports Teams app projects written in different programming languages and these Teams apps are suitable for hosting on different Azure services. You can refer to below official actions when setting up CI/CD deployment pipelines for these projects.
 
 Build:
 
 | language      | GitHub                    |Azure Pipeline
 |---------------------------------------------------|-------------------------------|----|
-| JS/TS                | [actions/setup-node](https://github.com/actions/setup-node) <br> script: npm install.. |[NodeTool@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/node-tool-v0?view=azure-pipelines) <br> script: npm install…| 
-| C#      | [actions/setup-dotnet](https://github.com/actions/setup-dotnet) <br>script: dotnet build… |[DotNetCoreCLI@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/dotnet-core-cli-v2?view=azure-pipelines)|
+| JS/TS                | [actions/setup-node](https://github.com/actions/setup-node)  |[NodeTool@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/node-tool-v0?view=azure-pipelines) | 
+| C#      | [actions/setup-dotnet](https://github.com/actions/setup-dotnet)  |[DotNetCoreCLI@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/dotnet-core-cli-v2?view=azure-pipelines)|
 
 
 Deploy:
