@@ -1,12 +1,12 @@
 # Teams app CI/CD transparent guide
 This document provide guidance on how to setup CI/CD pipeline for teams app created with the Teams Toolkit using your custom approach.
 
-## how to write deploy section in your customized way
-The most convenient way to deploy teams app is using teamsapp cli's "teamspp deploy" command. If you cannot use teamsapp cli in your pipepline, you can follow the following guide.
+## Custom Deployment Approach
+The most convenient way to deploy teams app is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. If you're unable to leverage the teamsapp CLI within your pipeline, you can create a custom deployment process tailored to your needs.
 
-The "teamsapp deploy" command executes the actions in teamsapp.yml's "deploy" section and this section contains 2 parts: build and deploy. What you need to do is rewritting these actions into your own way.
+The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage and this stage contains 2 parts: build and deploy. What you need to do is rewritting these actions into your own way.
 
-Taking basic bot typescript project as an example, it's teamsapp.yml is as following:
+Taking basic bot typescript project as an example, it's teamsapp.yml's deploy stage is as following:
 ```yml
 deploy:
   # Run npm command
@@ -32,9 +32,9 @@ deploy:
       # or add it to your environment variable file.
       resourceId: ${{BOT_AZURE_APP_SERVICE_RESOURCE_ID}}
 ```
-These actions will first run `npm build` to build the project, then deploy the code to app service.
+These actions will first run `npm build` to build the project, then deploy the code to Azure app service. You can rewrite these actions in your CI/CD pipleline in your own way. 
 
-You can rewrite these actions as following in your CI/CD pipeline:
+Below is an example of using GitHub official actions:
 ```yml
     # build
     - name: Setup Node 18.x
@@ -70,15 +70,15 @@ Build:
 
 | language      | GitHub                    |Azure Pipeline
 |---------------------------------------------------|-------------------------------|----|
-| JS/TS                | actions/setup-node@v3 <br> script: npm install.. |NodeTool@0 <br> script: npm install…| 
-| C#      | actions/setup-dotnet@v1 <br>script: dotnet build… |DotNetCoreCLI@2|
-| docker             | docker/login-action@v2 <br> docker/build-push-action@v4 |Docker@2|
+| JS/TS                | [actions/setup-node](https://github.com/actions/setup-node) <br> script: npm install.. |[NodeTool@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/node-tool-v0?view=azure-pipelines) <br> script: npm install…| 
+| C#      | [actions/setup-dotnet](https://github.com/actions/setup-dotnet) <br>script: dotnet build… |[DotNetCoreCLI@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/dotnet-core-cli-v2?view=azure-pipelines)|
+
 
 Deploy:
 
 | resource   | GitHub                  |Azure Pipeline
 |---------------------------------------------------|-------------------------------|----|
-| App Service               |azure/webapps-deploy@v2 | AzureWebApp@1
-| Function          |Azure/functions-action@v1|AzureFunctionApp@1
-| Static Web App             |Azure/static-web-apps-deploy@v1| AzureStaticWebApp@0|
+| App Service               |[azure/webapps-deploy](https://github.com/Azure/webapps-deploy)| [AzureWebApp@1](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-web-app-v1?view=azure-pipelines)
+| Function          |[Azure/functions-action](https://github.com/Azure/functions-action)|[AzureFunctionApp@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-function-app-v2?view=azure-pipelines)
+| Static Web App             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
 
