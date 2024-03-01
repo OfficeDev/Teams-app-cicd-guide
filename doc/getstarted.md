@@ -98,6 +98,8 @@ jobs:
 ```
 ### Additional modifications of the yml file
 The variables used for deployment and generating appPackage will need to be explicitly added to env so that teamsapp cli can read them.
+
+Taking basic bot template as an example, you need to manually set the following values into env in yml:
 ```yml
 jobs:
   build:
