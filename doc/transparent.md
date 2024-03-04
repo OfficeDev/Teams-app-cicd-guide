@@ -86,5 +86,19 @@ Deploy:
 | Function          |[Azure/functions-action](https://github.com/Azure/functions-action)|[AzureFunctionApp@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-function-app-v2?view=azure-pipelines)
 | Static Web App             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
 
-## Create AppPackage
-Teamsapp cli's command "teamsapp package" will create the appPackage.zip. If you cannot use teamsapp cli, you can follow https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/apps-package to create the appPackage by hand.
+## Test the teams app
+You will need the **appPackage** to test your Teams app. Teamsapp CLI's command "teamsapp package" can help you create the `appPackage.zip` automatically. If you cannot use teamsapp CLI, you can follow below steps to create the appPackage by hand.
+
+1. prepare `mainfest.json`
+
+    The default manifest.json in Teams Toolkit project has placeholders (wrapped in ${{}}). You should replace these placeholders with true values.
+
+2. prepare App icons
+
+    Your should prepare 2 .png versions of your app icon: a color and outline version. You can check [here](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/apps-package#app-icons) for the details of the app icon.
+
+3. zip the appPackage
+
+    Zip the above manifest.json and 2 .png files into `appPackage.zip`.
+
+You can pass this appPackage.zip to testers/developers to test the Teams app. They can follow these [steps](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload) to upload the Teams app.
