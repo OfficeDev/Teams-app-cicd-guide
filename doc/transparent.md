@@ -68,7 +68,7 @@ Below is an example of using GitHub official actions:
         package: deploy.zip
 ```
 
-Currently, the Teams Toolkit supports Teams app projects written in different programming languages and these Teams apps are suitable to be hosted on different Azure services. You can refer to below official actions when setting up CI/CD deployment pipelines for these projects.
+Currently, the Teams Toolkit supports Teams app projects written in different programming languages and suitable to be hosted on different Azure services. You can refer to below official actions when setting up CI/CD deployment pipelines for these projects.
 
 Build:
 
@@ -87,11 +87,11 @@ Deploy:
 | Static Web App             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
 
 ## Test the teams app
-You will need the **appPackage** to test your Teams app. Teamsapp CLI's command "teamsapp package" can help you create the `appPackage.zip` automatically. If you cannot use teamsapp CLI, you can follow below steps to create the appPackage by hand.
+You will need the `appPackage` to test your Teams app. Teamsapp CLI's command "teamsapp package" can help you create the `appPackage.zip` automatically. If you cannot leverage teamsapp CLI to do this, you can follow below steps to create the appPackage by hand.
 
 1. prepare `mainfest.json`.
 
-    The default manifest.json in Teams Toolkit project has placeholders (wrapped in ${{}}). You should replace these placeholders with true values.
+    The default `manifest.json` in Teams Toolkit project has placeholders (wrapped in ${{}}). You should replace these placeholders with true values.
 
 2. prepare App icons.
 
@@ -101,4 +101,4 @@ You will need the **appPackage** to test your Teams app. Teamsapp CLI's command 
 
     Zip the above manifest.json and 2 .png files into `appPackage.zip`.
 
-You can pass this appPackage.zip to testers/developers to test the Teams app. They can follow these [steps](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload) to upload the Teams app.
+You can pass this `appPackage.zip` to testers/developers to test the Teams app. They can follow these [steps](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload) to upload the Teams app.

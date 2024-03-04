@@ -22,7 +22,7 @@ This document provides guidance on how to set up a CI/CD pipeline for Teams apps
     Prepare the resources needed for your app's manifest (teams app id, bot id, etc). You can leverage Teams Toolkit’s “**provision**” command to create these resources. 
 
 
-You should follow the steps below to setup the pipeline:
+After you meet the above prerequites, you can follow the steps below to setup the pipeline:
 - [GitHub](#steps-github)
 - [Azure Pipeline](#steps-azure-pipeline)
 ## Steps (GitHub)
