@@ -1,4 +1,4 @@
-# OverView
+# Overview
 
 You can set up a Continuous Integration and Continuous Deployment (CI/CD) pipeline for Microsoft Teams apps created with the Teams Toolkit. How you enable the pipeline depends on your needs and scenarios. 
 
