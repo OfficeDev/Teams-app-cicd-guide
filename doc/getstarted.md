@@ -3,7 +3,7 @@ This document provides guidance on how to set up a CI/CD pipeline for Teams apps
 1.	deploying code to Azure.
 2.	generating a Teams app's appPackage, which can be used for [app distribution](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).
 
-You should follow the steps below to setup the pipeline: 
+ 
 ### Prerequisites
 1.	Prepare and config Azure resources.
 
@@ -12,14 +12,19 @@ You should follow the steps below to setup the pipeline:
 2.	Prepare service principal.
 
     You should have a service principal and configure its access policies on resources. Below are some docs that you can refer to:
-    -	Azure portal: https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal
-    -	Azure CLI: https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash#create-a-service-principal-with-role-and-scope
+    -	Using Azure portal: https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal
+    -	Using Azure CLI: https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash#create-a-service-principal-with-role-and-scope
 
     Save service principal’s **client id**, **client secret**, **tenant id** for following steps.
 
 3.	Prepare Teams app needed resources.
 
-    Prepare the resources needed for your app's manifest( teams app id, bot id, etc). You can leverage Teams Toolkit’s “**provision**” command to create these ids. 
+    Prepare the resources needed for your app's manifest (teams app id, bot id, etc). You can leverage Teams Toolkit’s “**provision**” command to create these resources. 
+
+
+You should follow the steps below to setup the pipeline:
+- [GitHub](#steps-github)
+- [Azure Pipeline](#steps-azure-pipeline)
 ## Steps (GitHub)
 
 ### Prepare a GitHub repository
@@ -97,7 +102,7 @@ jobs:
 
 ```
 ### Additional modifications of the yml file
-The variables used for deployment and generating appPackage will need to be explicitly added to env so that teamsapp cli can read them.
+The variables used for deployment and generating appPackage need to be explicitly added to env so that teamsapp cli can read them.
 
 Taking basic bot template as an example, you need to manually set the following values into env in yml:
 ```yml
@@ -118,7 +123,7 @@ Push code to the repo to trigger pipeline.
 
 The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
 
-After the pipeline runs successfully you should see from the log that code deployed to Azure and the appPackage has been generated in artifacts. You can use this appPackage to [distribute your app](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).
+After the pipeline runs successfully you should see from the log that code has been deployed to Azure and the appPackage has been generated in artifacts. You can use this appPackage to [distribute your app](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).
 
 ## Steps (Azure pipeline)
 ###	Prepare Azure or GitHub repository

@@ -68,7 +68,7 @@ Below is an example of using GitHub official actions:
         package: deploy.zip
 ```
 
-Currently, the Teams Toolkit supports Teams app projects written in different programming languages and these Teams apps are suitable for hosting on different Azure services. You can refer to below official actions when setting up CI/CD deployment pipelines for these projects.
+Currently, the Teams Toolkit supports Teams app projects written in different programming languages and these Teams apps are suitable to be hosted on different Azure services. You can refer to below official actions when setting up CI/CD deployment pipelines for these projects.
 
 Build:
 
@@ -86,3 +86,5 @@ Deploy:
 | Function          |[Azure/functions-action](https://github.com/Azure/functions-action)|[AzureFunctionApp@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-function-app-v2?view=azure-pipelines)
 | Static Web App             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
 
+## Create AppPackage
+Teamsapp cli's command "teamsapp package" will create the appPackage.zip. If you cannot use teamsapp cli, you can follow https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/apps-package to create the appPackage by hand.
