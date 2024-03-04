@@ -85,7 +85,53 @@ Deploy:
 | App Service               |[azure/webapps-deploy](https://github.com/Azure/webapps-deploy)| [AzureWebApp@1](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-web-app-v1?view=azure-pipelines)
 | Function          |[Azure/functions-action](https://github.com/Azure/functions-action)|[AzureFunctionApp@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-function-app-v2?view=azure-pipelines)
 | Static Web App             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
+## Credential needed for deployment
+If you are using CI/CD to deploy app code to Azure app service, Azure functions or Azure container app, you need a service principal configured with minimum required access to the resource. There are 2 ways of login to Azure using service principal: using OpenID Connect(OIDC) or secret.
 
+### OIDC (recommended)
+OIDC is the recommended way since it has increased security. To use it in GitHub actions, follow this [guide](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#create-a-microsoft-entra-application-and-service-principal) to create the service principal and add federated credentials, and set the client id , tenant id and sub id in GitHub repo, then you can use Azure/login action like following:
+```yml
+- name: 'Login using OIDC'
+      uses: azure/login@v1
+      with:
+        client-id: ${{ vars.SERVICE_PRINCIPAL_CLIENT_ID }}
+        tenant-id: ${{ vars.SERVICE_PRINCIPAL_TENANT_ID }}
+        subscription-id: ${{ vars.SERVICE_PRINCIPAL_SUBSCRIPTION_ID }}
+```
+> To use OIDC in GitHub actions, you need to modify the permission in CI/CD:
+```yml
+permissions: 
+  id-token: write
+  contents: read
+```
+
+  For Azure pipeline, follow this [guide](https://learn.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops#create-an-azure-resource-manager-service-connection-using-workload-identity-federation) to create a workload identity federation service connection. Then you can use the connection name in your pipeline:
+
+```yml
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: $(connection_name)
+        appName: $(app_name)
+        package: '$(System.DefaultWorkingDirectory)/'
+      displayName: 'Deploy to Azure Web App'
+```
+
+### Secret
+For Github actions, follow this [guide](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-a-service-principal-secret) to create a service principal and secret. Then you can use Azure/login action like:
+```yml
+    - uses: Azure/login@v1
+      with:
+        creds: '{"clientId":"${{ secrets.CLIENT_ID }}","clientSecret":"${{ secrets.CLIENT_SECRET }}","subscriptionId":"${{ secrets.SUBSCRIPTION_ID }}","tenantId":"${{ secrets.TENANT_ID }}"}'
+```
+For Azure pipeline, follow this [guide](https://learn.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops#create-an-azure-resource-manager-service-connection-using-a-service-principal-secret) to create a service principal service connection. Then you can use the service connection name in actions like below:
+```yml
+    - task: AzureWebApp@1
+      inputs:
+        azureSubscription: $(connection_name)
+        appName: $(app_name)
+        package: '$(System.DefaultWorkingDirectory)/'
+      displayName: 'Deploy to Azure Web App'
+```
 ## Test the teams app
 You will need the `appPackage` to test your Teams app. Teamsapp CLI's command "teamsapp package" can help you create the `appPackage.zip` automatically. If you cannot leverage teamsapp CLI to do this, you can follow below steps to create the appPackage by hand.
 
