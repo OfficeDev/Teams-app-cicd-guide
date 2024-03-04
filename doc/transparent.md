@@ -89,15 +89,15 @@ Deploy:
 ## Test the teams app
 You will need the **appPackage** to test your Teams app. Teamsapp CLI's command "teamsapp package" can help you create the `appPackage.zip` automatically. If you cannot use teamsapp CLI, you can follow below steps to create the appPackage by hand.
 
-1. prepare `mainfest.json`
+1. prepare `mainfest.json`.
 
     The default manifest.json in Teams Toolkit project has placeholders (wrapped in ${{}}). You should replace these placeholders with true values.
 
-2. prepare App icons
+2. prepare App icons.
 
     Your should prepare 2 .png versions of your app icon: a color and outline version. You can check [here](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/apps-package#app-icons) for the details of the app icon.
 
-3. zip the appPackage
+3. zip the appPackage.
 
     Zip the above manifest.json and 2 .png files into `appPackage.zip`.
 
