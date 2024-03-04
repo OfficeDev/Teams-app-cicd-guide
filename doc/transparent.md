@@ -108,12 +108,12 @@ permissions:
   For Azure pipeline, follow this [guide](https://learn.microsoft.com/en-us/azure/devops/pipelines/library/connect-to-azure?view=azure-devops#create-an-azure-resource-manager-service-connection-using-workload-identity-federation) to create a workload identity federation service connection. Then you can use the connection name in your pipeline:
 
 ```yml
-    - task: AzureWebApp@1
-      inputs:
-        azureSubscription: $(connection_name)
-        appName: $(app_name)
-        package: '$(System.DefaultWorkingDirectory)/'
-      displayName: 'Deploy to Azure Web App'
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: $(connection_name)
+    appName: $(app_name)
+    package: '$(System.DefaultWorkingDirectory)/'
+  displayName: 'Deploy to Azure Web App'
 ```
 
 ### Secret
