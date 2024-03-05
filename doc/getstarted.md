@@ -31,12 +31,16 @@ After you meet the above prerequites, you can follow the steps below to setup th
 
 ### Set variables/secrets in the repository
 The following variables and secrets are needed for the pipeline:
-1. Service principal related: service principal client id, client secret, tenant id.
-2. Deployment related: all placeholders (wrapped in \${{}}) in teamspp.yml’s deploy section.
-3. AppPackage related: all placeholders (wrapped in \${{}}) in manifest.json.
+1. Service principal related: service principal client id, client secret, tenant id. These are needed for login to Azure.
+2. Deployment related: all placeholders (wrapped in \${{}}) in **teamspp.yml’s deploy** section.
+3. AppPackage related: all placeholders (wrapped in \${{}}) in **manifest.json**.
 
-    Taking basic bot template as an example, the teamsapp.yml’s deploy section contains a placeholder \${{BOT_AZURE_APP_SERVICE_RESOURCE_ID}} indicating the resource id of the app service that the code will be deployed to. The manifest.json contains the following placeholders: \${{TEAMS_APP_ID}}, \${{APP_NAME_SUFFIX}}, \${{BOT_ID}}. These vars need to be set in the repository.
-Therefore, for basic bot template, you need to set the following values and secrets:
+Taking basic bot template as an example, below variables and secrets are needed:
+- AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET
+- Its teamsapp.yml’s deploy section contains a placeholder \${{BOT_AZURE_APP_SERVICE_RESOURCE_ID}}. 
+- Its manifest.json contains these placeholders: \${{TEAMS_APP_ID}}, \${{APP_NAME_SUFFIX}}, \${{BOT_ID}}.
+
+Therefore for basic bot template, you need to set following variables/secrets in the repository.
 
 | name                                              | purpose                       |
 |---------------------------------------------------|-------------------------------|
@@ -48,6 +52,7 @@ Therefore, for basic bot template, you need to set the following values and secr
 | TEAMS_APP_ID                 | appPackage                    |
 | APP_NAME_SUFFIX               | appPackage                    |
 
+For setting variables/secrets for a GitHub repository, check this [reference](https://docs.github.com/en/actions/learn-github-actions/variables).
 > The  AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET should be set as secret.
 ### Create a CD yml
 Create a cd.yml file under .github/workflows/ folder.  Write the following content into this yml file.
@@ -81,7 +86,7 @@ jobs:
           npx teamsapp account login azure --username ${{vars.AZURE_SERVICE_PRINCIPAL_CLIENT_ID}}  \
           --service-principal true \
           --tenant ${{vars.AZURE_TENANT_ID}} \
-          --password ${{secrets.AZURE_SERVICE_PRINCIPAL_ CLIENT_SECRET }} \
+          --password ${{secrets.AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET }} \
           --interactive false
 
       - name: Deploy to hosting environment
@@ -101,10 +106,10 @@ jobs:
 
 
 ```
-### Additional modifications of the yml file
-The variables used for deployment and generating appPackage need to be explicitly added to env so that teamsapp cli can read them.
+### Modifications of the yml file
+The variables used for **deployment** and **generating appPackage** need to be explicitly added to env so that teamsapp cli can read them.
 
-Taking basic bot template as an example, you need to manually set the following values into env in yml:
+Taking basic bot template as an example, after modification the yml file will be like:
 ```yml
 jobs:
   build:
@@ -167,14 +172,18 @@ steps:
 ### Setup Azure pipeline
 After pushing your code to repo. Go to **Pipelines**, and then select **New pipeline**. Select your repo and select your existing yml file to configure your pipeline.
 
-### Set variables/secrets in repository 
+### Set variables/secrets in pipeline 
 The following variables and secrets are needed for the pipeline:
 1. Service principal related: service principal client id, client secret, tenant id.
-2. Deployment related: all placeholders (wrapped in \${{}}) in teamspp.yml’s deploy section.
-3. AppPackage related: all placeholders (wrapped in \${{}}) in manifest.json.
+2. Deployment related: all placeholders (wrapped in \${{}}) in **teamspp.yml’s deploy section**.
+3. AppPackage related: all placeholders (wrapped in \${{}}) in **manifest.json**.
 
-    Taking basic bot template as an example, the teamsapp.yml’s deploy section contains a placeholder \${{BOT_AZURE_APP_SERVICE_RESOURCE_ID}} indicating the resource id of the app service that the code will be deployed to. The manifest.json contains the following placeholders: \${{TEAMS_APP_ID}}, \${{APP_NAME_SUFFIX}}, \${{BOT_ID}}. These need to be set in the repository.
-Therefore, for basic bot template, you need to set the following values and secrets:
+Taking basic bot template as an example, below variables and secrets are needed:
+- AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET
+- Its teamsapp.yml’s deploy section contains a placeholder \${{BOT_AZURE_APP_SERVICE_RESOURCE_ID}}. 
+- Its manifest.json contains these placeholders: \${{TEAMS_APP_ID}}, \${{APP_NAME_SUFFIX}}, \${{BOT_ID}}.
+
+Therefore, for basic bot template, you need to set the following values and secrets in the pipeline:
 
 | name                                              | purpose                       |
 |---------------------------------------------------|-------------------------------|
