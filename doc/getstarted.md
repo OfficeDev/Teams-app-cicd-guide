@@ -23,8 +23,8 @@ This document provides guidance on how to set up a CI/CD pipeline for Teams apps
 
 
 After you meet the above prerequites, you can follow the steps below to setup the pipeline:
-- [GitHub](#steps-github)
-- [Azure Pipeline](#steps-azure-pipeline)
+- [using GitHub action](#steps-github)
+- [using Azure Pipeline](#steps-azure-pipeline)
 ## Steps (GitHub)
 
 ### Prepare a GitHub repository
@@ -52,7 +52,7 @@ Therefore for basic bot template, you need to set following variables/secrets in
 | TEAMS_APP_ID                 | appPackage                    |
 | APP_NAME_SUFFIX               | appPackage                    |
 
-For setting variables/secrets for a GitHub repository, check this [reference](https://docs.github.com/en/actions/learn-github-actions/variables).
+For setting variables/secrets for a GitHub repository, check this [reference](https://docs.github.com/en/actions/learn-github-actions/variables#creating-configuration-variables-for-a-repository).
 > The  AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET should be set as secret.
 ### Create a CD yml
 Create a cd.yml file under .github/workflows/ folder.  Write the following content into this yml file.
@@ -121,10 +121,15 @@ jobs:
       TEAMS_APP_ID: ${{vars.TEAMS_APP_ID}}
       BOT_ID: ${{vars.BOT_ID}}
       APP_NAME_SUFFIX: ${{vars.APP_NAME_SUFFIX}}
+
+    steps:
+    ...
+    ...
 ```
 
 ### Run the pipeline
 Push code to the repo to trigger pipeline. 
+> Note: You don't need to commit env files under env/ folder into the repo.
 
 The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
 
@@ -197,6 +202,7 @@ Therefore, for basic bot template, you need to set the following values and secr
 
 ### Run the pipeline
 Push code to the repo to trigger pipeline. 
+> Note: You don't need to commit env files under env/ folder into the repo.
 
 The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
 
