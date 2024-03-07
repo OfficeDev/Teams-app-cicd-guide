@@ -3,6 +3,8 @@ This document provides guidance on how to set up a CI/CD pipeline for Teams apps
 1.	deploying code to Azure.
 2.	generating a Teams app's appPackage, which can be used for [app distribution](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).
 
+> For creating project, we recommend using Teams Toolkit version 5.6.0 or later.
+
  
 ### Prerequisites
 1.	Prepare and config Azure resources.

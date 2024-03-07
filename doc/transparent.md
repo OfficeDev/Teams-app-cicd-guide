@@ -4,7 +4,7 @@ This document provide guidance on how to setup CI/CD pipeline for teams app crea
 ## Custom Deployment Approach
 The most convenient way to deploy teams app to Azure is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. If you're unable to leverage the teamsapp CLI within your pipeline, you can create a custom deployment process tailored to your needs.
 
-The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage and this stage contains 2 parts: build and deploy. What you need to do is rewritting these actions into your own way.
+The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage. Most of the "deploy" stages contains "build" and "deploy" actions. What you need to do is rewritting these actions into your own way.
 
 Taking basic bot typescript project as an example, its teamsapp.yml's deploy stage is as following:
 ```yml
@@ -68,7 +68,7 @@ Below is an example of using GitHub official actions:
         package: deploy.zip
 ```
 
-Currently, the Teams Toolkit supports Teams app projects written in different programming languages and suitable to be hosted on different Azure services. You can refer to below official actions when setting up CI/CD deployment pipelines for these projects.
+Currently, the Teams Toolkit supports Teams app projects written in different programming languages and suitable to be hosted on different Azure services. Below lists some official actions for build and deploy. You can refer to these actions when setting up CI/CD deployment pipelines for Teams Toolkit projects.
 
 Build:
 
@@ -86,7 +86,7 @@ Deploy:
 | Function          |[Azure/functions-action](https://github.com/Azure/functions-action)|[AzureFunctionApp@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-function-app-v2?view=azure-pipelines)
 | Static Web App             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
 ## Credential needed for deployment
-If you are using CI/CD to deploy app code to Azure app service, Azure functions or Azure container app, you need a service principal configured with minimum required access to the resource. There are 2 ways of login to Azure using service principal: using OpenID Connect(OIDC) or secret.
+If you are using CI/CD to deploy app code to Azure app service, Azure functions or Azure container app, you need a service principal configured with minimum required access to the resource. There are 2 ways of login to Azure using service principal: using **OpenID Connect(OIDC)** or **secret**.
 
 ### OIDC (recommended)
 OIDC is the recommended way since it has increased security. To use it in GitHub actions, follow this [guide](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#create-a-microsoft-entra-application-and-service-principal) to create the service principal and add federated credentials, and set the client id , tenant id and sub id in GitHub repo, then you can use Azure/login action like following:
