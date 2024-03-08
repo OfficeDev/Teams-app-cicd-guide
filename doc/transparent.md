@@ -4,7 +4,7 @@ This document provide guidance on how to setup CI/CD pipeline for teams app crea
 ## Custom Deployment Approach
 The most convenient way to deploy teams app to Azure is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. If you're unable to leverage the teamsapp CLI within your pipeline, you can create a custom deployment process tailored to your needs.
 
-The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage. Most of the "deploy" stages contains "build" and "deploy" actions. What you need to do is rewritting these actions into your own way.
+The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage. Most of the "deploy" stages consists of "build" and "deploy" actions. What you need to do is rewritting these actions into your own way.
 
 Taking basic bot typescript project as an example, its teamsapp.yml's deploy stage is as following:
 ```yml
@@ -68,7 +68,7 @@ Below is an example of using GitHub official actions:
         package: deploy.zip
 ```
 
-Currently, the Teams Toolkit supports Teams app projects written in different programming languages and suitable to be hosted on different Azure services. Below lists some official actions for build and deploy. You can refer to these actions when setting up CI/CD deployment pipelines for Teams Toolkit projects.
+Currently, the Teams Toolkit supports Teams app projects written in different programming languages and suitable to be hosted on different Azure services. Below lists some official actions for build and deploy. You can refer to these actions when setting up CI/CD deployment pipelines.
 
 Build:
 
@@ -82,14 +82,14 @@ Deploy:
 
 | resource   | GitHub                  |Azure Pipeline
 |---------------------------------------------------|-------------------------------|----|
-| App Service               |[azure/webapps-deploy](https://github.com/Azure/webapps-deploy)| [AzureWebApp@1](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-web-app-v1?view=azure-pipelines)
-| Function          |[Azure/functions-action](https://github.com/Azure/functions-action)|[AzureFunctionApp@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-function-app-v2?view=azure-pipelines)
-| Static Web App             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
+| Azure App Service               |[azure/webapps-deploy](https://github.com/Azure/webapps-deploy)| [AzureWebApp@1](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-web-app-v1?view=azure-pipelines)
+| Azure Functions     |[Azure/functions-action](https://github.com/Azure/functions-action)|[AzureFunctionApp@2](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-function-app-v2?view=azure-pipelines)
+|Azure Static Web Apps             |[Azure/static-web-apps-deploy](https://github.com/Azure/static-web-apps-deploy)| [AzureStaticWebApp@0](https://learn.microsoft.com/en-us/azure/devops/pipelines/tasks/reference/azure-static-web-app-v0?view=azure-pipelines)|
 ## Credential needed for deployment
 If you are using CI/CD to deploy app code to Azure app service, Azure functions or Azure container app, you need a service principal configured with minimum required access to the resource. There are 2 ways of login to Azure using service principal: using **OpenID Connect(OIDC)** or **secret**.
 
 ### OIDC (recommended)
-OIDC is the recommended way since it has increased security. To use it in GitHub actions, follow this [guide](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#create-a-microsoft-entra-application-and-service-principal) to create the service principal and add federated credentials, and set the client id , tenant id and sub id in GitHub repo, then you can use Azure/login action like following:
+OIDC is the recommended way since it has increased security. To use it in GitHub actions, follow this [guide](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#create-a-microsoft-entra-application-and-service-principal) to create the service principal and add federated credentials, and set the client id , tenant id and sub id in GitHub repo variables, then you can use Azure/login action like following:
 ```yml
 - name: 'Login using OIDC'
       uses: azure/login@v1
@@ -132,19 +132,16 @@ For Azure pipeline, follow this [guide](https://learn.microsoft.com/en-us/azure/
         package: '$(System.DefaultWorkingDirectory)/'
       displayName: 'Deploy to Azure Web App'
 ```
-## Test the teams app
-You will need the `appPackage` to test your Teams app. Teamsapp CLI's command "teamsapp package" can help you create the `appPackage.zip` automatically. If you cannot leverage teamsapp CLI to do this, you can follow below steps to create the appPackage by hand.
+## Prepare the `appPackage` for the teams app
+You will need the `appPackage` to distribute your Teams app. Teamsapp CLI's command "teamsapp package" can help you create the `appPackage.zip` automatically. If you cannot leverage teamsapp CLI to do this, you can follow below steps to create the appPackage by hand.
+1. prepare a `appPackage/` folder.
 
-1. prepare `mainfest.json`.
+1. put `mainfest.json` in `appPackage` folder.
 
     The default `manifest.json` in Teams Toolkit project has placeholders (wrapped in ${{}}). You should replace these placeholders with true values.
 
-2. prepare App icons.
-
-    Your should prepare 2 .png versions of your app icon: a color and outline version. You can check [here](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/apps-package#app-icons) for the details of the app icon.
-
-3. zip the appPackage.
-
-    Zip the above manifest.json and 2 .png files into `appPackage.zip`.
-
-You can pass this `appPackage.zip` to testers/developers to test the Teams app. They can follow these [steps](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload) to upload the Teams app.
+2. put app icons in `appPackage` folder.
+    
+    Follow the guide to prepare [app icons](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/build-and-test/apps-package#app-icons). You should have 2 .png files as output.
+3. zip the appPackage folder.
+    Zip the `appPackage/` folder into `appPackage.zip`.
