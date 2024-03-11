@@ -1,9 +1,9 @@
 # Overview
 
-You can set up a Continuous Integration and Continuous Deployment (CI/CD) pipeline for Microsoft Teams apps created with the Teams Toolkit. How you enable the pipeline depends on your needs and scenarios. 
+You can set up a Continuous Integration and Continuous Deployment (CI/CD) pipeline for Microsoft Teams apps created with the Teams Toolkit. There are few prerequisites that you must go through before working on this.
 
-## Teams app CI/CD Starter Guide 
-The CI/CD starter guide is for those who can use the Teams Toolkit CLI, focuses on quickly setting up a CI/CD pipeline for your Teams app. It covers the essentials, such as preparing Azure resources, configuring settings, and utilizing GitHub and Azure DevOps platforms. By following this guide, you will learn how to create and run the pipeline, automating the deployment of code to Azure and generating an appPackage for app distribution.
+Before creating a pipeline for a Teams app, it is essential to prepare the necessary cloud resources, such as Azure Web App, Azure Functions, or Azure Static Web App, and configure the app settings. A Teams app CI/CD pipeline typically consists of three parts: building the project, deploying the project to cloud resources, and building the Teams app package.
 
-## Teams app CI/CD transparent guide
-If you cannot use the Teams Toolkit CLI or require a custom deployment process for your Teams app, the CI/CD transparent guide provides a detailed guide on creating a custom CI/CD pipeline. This guide shows the use of GitHub official actions and Azure Pipeline tasks for building and deploying teams app project written in different programming languages and hosted on various Azure services. It also covers methods of authentication for deploying app code to Azure services using OpenID Connect (OIDC) or a secret. Moreover, it offers steps to manually create an app package for testing the Teams app if the Teams Toolkit CLI cannot be used to generate the appPackage.zip file.
+Building the project involves compiling the source code and creating the necessary artifacts for deployment. For the deployment process, it is recommended to use the Teams App CLI. For more information, please refer to [Teams app CI/CD pipeline starter guide](/doc/getstarted.md). If you prefer not to use the Teams App CLI for deployment or would like to customize your pipeline, you can refer to [Alternative Deployment Solutions for Teams App CI/CD Pipelines](/doc/alternativesolution.md).
+
+The final step, building the Teams app package, helps you test your Teams app after deployment by [Upload your app in Teams](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-upload). By following these guidelines and ensuring that the necessary cloud resources and configurations are in place, you can streamline the process of creating and deploying a Teams app using a CI/CD pipeline.

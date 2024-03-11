@@ -1,4 +1,4 @@
-# Teams app CI/CD starter guide
+# Teams app CI/CD pipeline starter guide
 This document provides guidance on how to set up a CI/CD pipeline for Teams apps created with the Teams Toolkit, using GitHub and Azure DevOps platform, through the [Teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three). The pipeline automates the following procedures:
 1.	deploying code to Azure.
 2.	generating a Teams app's appPackage, which can be used for [app distribution](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).

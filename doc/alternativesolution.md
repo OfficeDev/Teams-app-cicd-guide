@@ -1,5 +1,5 @@
-# Teams app CI/CD transparent guide
-This document provide guidance on how to setup CI/CD pipeline for teams app created with the Teams Toolkit using your custom approach.
+# Alternative Deployment Solutions for Teams App CI/CD Pipeline
+You can setup CI/CD pipeline for teams app created with the Teams Toolkit using your custom approach.
 
 ## Custom Deployment Approach
 The most convenient way to deploy teams app to Azure is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. If you're unable to leverage the teamsapp CLI within your pipeline, you can create a custom deployment process tailored to your needs.
