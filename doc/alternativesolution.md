@@ -1,4 +1,4 @@
-# Alternative Deployment Solutions for Teams App CI/CD Pipeline
+# Alternative Deployment Solutions for Teams app CI/CD pipeline
 You can setup CI/CD pipeline for teams app created with the Teams Toolkit using your custom approach.
 
 ## Custom Deployment Approach
