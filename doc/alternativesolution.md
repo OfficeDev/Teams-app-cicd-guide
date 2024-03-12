@@ -4,7 +4,7 @@ You can set up a CI/CD pipeline for Teams apps created with the Teams Toolkit us
 ## Custom Deployment Method
 The most convenient way to deploy teams app to Azure is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. However, if you're unable to leverage the Teams App CLI within your pipeline, you can create a custom deployment process tailored to your needs.
 
-The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage. Most of the "deploy" stages consists of "build" and "deploy" actions. To create a custom deployment method, you need to rewrite these actions according to your requirements and preferences.
+The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage. Most of the "deploy" stages consist of "build" and "deploy" actions. To create a custom deployment method, you need to rewrite these actions according to your requirements and preferences.
 
 Taking basic bot typescript project as an example, its teamsapp.yml's deploy stage is as following:
 ```yml

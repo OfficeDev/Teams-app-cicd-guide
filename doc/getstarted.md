@@ -89,6 +89,7 @@ The following variables and secrets are needed for the pipeline:
 - Service principal related: service principal client id, client secret, tenant id. These are needed for login to Azure.
 - Deployment related: all placeholders (wrapped in \${{}}) in **teamspp.yml’s deploy** section.
 - AppPackage related: all placeholders (wrapped in \${{}}) in **manifest.json**.
+> If you used Teams Toolkit's "provision" command to create Azure resources and Teams app resources, you can find the values of these variables in your project's /env files.
 
 Taking basic bot template as an example, below variables and secrets are needed:
 - AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET
