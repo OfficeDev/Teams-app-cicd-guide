@@ -81,6 +81,7 @@ jobs:
           name: artifact
           path: appPackage/build/appPackage.zip
 ```
+>The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
 ### 2. Prepare a GitHub repository
 See [create a GitHub repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories).
 
@@ -194,6 +195,7 @@ steps:
   - publish: $(System.DefaultWorkingDirectory)/appPackage/build/appPackage.zip
     artifact: artifact
 ```
+>The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
 ###	2. Prepare Azure or GitHub repository
 - [Create Azure repository](https://learn.microsoft.com/en-us/azure/devops/repos/git/create-new-repo?view=azure-devops)
 - [Create GitHub repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/quickstart-for-repositories)
@@ -242,7 +244,5 @@ Therefore, for basic bot template, you need to set the following values and secr
 ### 5. Run the pipeline
 Push code to the repo to trigger pipeline. 
 > You don't need to commit env files under env/ folder into the repo. The env needed for running CI/CD pipeline are already set in the pipeline variables.
-
-The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
 
 After the pipeline runs successfully you should see from the log that code deployed to Azure and the appPackage has been generated in artifacts. You can use this appPackage to [distribute your app](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).
