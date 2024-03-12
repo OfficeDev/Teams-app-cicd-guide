@@ -8,12 +8,14 @@ This document provides guidance on how to set up a CI/CD pipeline for Teams apps
  
 ### Prerequisites
 
+> If you already ran Teams Toolkit’s “**provision**” command, you can skip prerequisites 1 and 2.
+    
 1.	Prepare Teams app needed resources.
 
-    Prepare the resources needed for your app's manifest (teams app id, bot id, etc). You can leverage Teams Toolkit’s “**provision**” command to create these resources. 
+    Prepare the resources needed for your app's manifest (teams app id, bot id, etc).  
 2.	Prepare and config Azure resources.
 
-    You can also leverage Teams Toolkit’s “**provision**” command to create the needed Azure resources, or you can manually prepare these resources by looking into biceps files under infra/ folder.
+    You can manually prepare these resources by looking into biceps files under infra/ folder.
 
 3.	Prepare service principal.
 
@@ -90,7 +92,7 @@ The following variables and secrets are needed for the pipeline:
 - Service principal related: service principal client id, client secret, tenant id. These are needed for login to Azure.
 - Deployment related: all placeholders (wrapped in \${{}}) in **teamspp.yml’s deploy** section.
 - AppPackage related: all placeholders (wrapped in \${{}}) in **manifest.json**.
-> If you used Teams Toolkit's "provision" command to create Azure resources and Teams app resources, you can find the values of these variables in your project's /env files.
+> If you used Teams Toolkit's "**provision**" command to create Azure resources and Teams app resources, you can find the values of these variables in your project's /env files.
 
 Taking basic bot template as an example, below variables and secrets are needed:
 - AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET
