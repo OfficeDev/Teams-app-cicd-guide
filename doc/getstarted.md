@@ -44,7 +44,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TEAMSAPP_CLI_VERSION: "3.0.0-beta.2024012307.0"
+      TEAMSAPP_CLI_VERSION: "3.0.0"
       # Add extra environment variables here so that teamsapp cli can use them.
 
     steps:
@@ -139,7 +139,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TEAMSAPP_CLI_VERSION: "3.0.0-beta.2024012307.0"
+      TEAMSAPP_CLI_VERSION: "3.0.0"
       # Add extra environment variables here so that teamsapp cli can use them.
       BOT_AZURE_APP_SERVICE_RESOURCE_ID: ${{vars.BOT_AZURE_APP_SERVICE_RESOURCE_ID}}
       TEAMS_APP_ID: ${{vars.TEAMS_APP_ID}}
@@ -170,7 +170,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-  TEAMSAPP_CLI_VERSION: 3.0.0-beta.2024012307.0
+  TEAMSAPP_CLI_VERSION: 3.0.0
 
 steps:
   - task: NodeTool@0
