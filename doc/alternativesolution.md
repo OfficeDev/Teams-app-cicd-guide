@@ -122,7 +122,7 @@ If you are using CI/CD to deploy app code to Azure app service, Azure functions 
 
 - Secret
 
-  For Github actions, follow this [guide](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-a-service-principal-secret) to create a service principal and secret. Then you can use Azure/login action like:
+  For GitHub actions, follow this [guide](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Cwindows#use-the-azure-login-action-with-a-service-principal-secret) to create a service principal and secret. Then you can use Azure/login action like:
   ```yml
       - uses: Azure/login@v1
         with:

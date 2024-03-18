@@ -20,15 +20,15 @@ This document provides guidance on how to set up a CI/CD pipeline for Teams apps
 3.	Prepare service principal.
 
     You should have a service principal and configure its access policies on resources. Below are some docs that you can refer to:
-    -	[Create service prinicapl using Azure portal](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal)
-    -	[Create service prinicapl using Azure CLI](https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash#create-a-service-principal-with-role-and-scope)
+    -	[Create service principal using Azure portal](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal)
+    -	[Create service principal using Azure CLI](https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash#create-a-service-principal-with-role-and-scope)
     
     Teamsapp cli currently supports login to Azure using service principal secret. [Create a secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret) and save service principal’s **client id**, **client secret**, **tenant id** for following steps.
 
 
 
 
-After you meet the above prerequites, you can follow the steps below to setup the pipeline:
+After you meet the above prerequisites, you can follow the steps below to setup the pipeline:
 - [Steps for Github Actions](#steps-for-github-actions)
 - [Steps for Azure Pipeline](#steps-for-azure-pipeline)
 ## Steps for Github Actions
