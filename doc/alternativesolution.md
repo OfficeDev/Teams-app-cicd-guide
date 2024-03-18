@@ -1,7 +1,8 @@
 # Alternative Deployment Solutions for Teams app CI/CD pipeline
 You can set up a CI/CD pipeline for Teams apps created with the Teams Toolkit using your preferred method.
 
-If your Teams app requires reading environment variables during runtime, you need to configure these environment variables in your Azure resource's settings. If you already have a complete CI/CD pipeline to deploy to your Azure resource, please go to [Prepare app package](#prepare-the-apppackage-for-the-teams-app), if not, please see below [Custom deployment method](#custom-deployment-method).
+> If you already have a complete CI/CD pipeline in place for deploying to your Azure resource, your Teams app requires reading environment variables during runtime, you need to configure these environment variables in your Azure resource's settings. You can refer to [Prepare app package](#prepare-the-apppackage-for-the-teams-app) section for testing after deployment. For other scenarios, please refer to [Custom deployment method](#custom-deployment-method) below.
+
 ## Custom Deployment Method
 The most convenient way to deploy teams app to Azure is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamspp deploy` command. However, if you're unable to leverage the Teams App CLI within your pipeline, you can create a custom deployment process tailored to your needs.
 
