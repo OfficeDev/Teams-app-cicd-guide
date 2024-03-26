@@ -36,7 +36,7 @@ You can use [Teams Toolkit CLI](https://learn.microsoft.com/en-us/microsoftteams
 
 4. Prepare a GitHub/Azure repository.
 
-After you meet the above prerequisites, you can follow the steps below to setup the pipeline. This document provides tutorial for [GitHub](#set-up-pipeline-with-github) and [Azure DevOps](#set-up-pipeline-with-azure-devops), if you wish to use other platforms, you can also refer to this document for guidance.
+After you meet the above prerequisites, you can follow the steps below to setup the pipeline. This section provides tutorial for [GitHub](#set-up-pipeline-with-github) and [Azure DevOps](#set-up-pipeline-with-azure-devops), if you wish to use other platforms, you can also refer to this section for guidance.
 ### Set up pipeline with GitHub
 
 #### 1. Create a CD yml in your project
@@ -209,7 +209,7 @@ After the pipeline runs successfully you should see from the log that code deplo
 
 ## Set up CI/CD pipelines using your own workflow
 
-If you're unable to leverage the Teams App CLI within your pipeline, you can create a custom deployment process tailored to your needs. This document offers guidance on how to deploy to Azure using custom methods. If you are using a different cloud platform, you can also refer to this document for guidance.
+If you're unable to leverage the Teams App CLI within your pipeline, you can create a custom deployment process tailored to your needs. This section offers guidance on how to deploy to Azure using custom methods. If you are using a different cloud platform, you can also refer to this section for guidance.
 
 > If you already have a complete CI/CD pipeline in place for deploying to your Azure resource, your Teams app requires reading environment variables during runtime, you need to configure these environment variables in your Azure resource's settings. You can refer directly to [Generate app package](#generate-the-apppackage-for-the-teams-app) section for testing after deployment. 
 
