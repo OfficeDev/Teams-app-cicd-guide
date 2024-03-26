@@ -22,10 +22,10 @@ You can use [Teams Toolkit CLI](https://learn.microsoft.com/en-us/microsoftteams
     
 1.	Prepare Teams app needed resources.
 
-    Prepare the resources needed for your app's manifest (teams app id, bot id, etc).  
+    You can manually prepare the resources (teams app id, bot id, etc) by looking into manifest file under appPackage/ folder, or you can run Teams Toolkit’s “**provision**” command to create them automatically.
 2.	Prepare and config Azure resources.
 
-    You can manually prepare these resources by looking into biceps files under infra/ folder.
+    You can manually prepare these resources by looking into biceps files under infra/ folder, , or you can run Teams Toolkit’s “**provision**” command to prepare these Azure resources automatically.
 
 3.	Prepare service principal.
 
@@ -37,7 +37,7 @@ You can use [Teams Toolkit CLI](https://learn.microsoft.com/en-us/microsoftteams
 
 4. Prepare a GitHub/Azure repository.
 
-After you meet the above prerequisites, you can follow the steps below to setup the pipeline with [GitHub](#set-up-pipeline-with-github), [Azure DevOps](#set-up-pipeline-with-azure-devops).
+After you meet the above prerequisites, you can follow the steps below to setup the pipeline. This document provides tutorial for [GitHub](#set-up-pipeline-with-github) and [Azure DevOps](#set-up-pipeline-with-azure-devops), if you wish to use other platforms, you can also refer to this document for guidance.
 ### Set up pipeline with GitHub
 
 #### 1. Create a CD yml in your project
@@ -94,26 +94,26 @@ jobs:
 
 #### 2. Set variables/secrets in the repository
 The following variables and secrets are needed for the pipeline:
-- AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET, see [prerequisites 3](#prerequisites).
-- Go to `teamsapp.yml` file, in `deploy` stage, the placeholders wrapped in \${{}} are the needed variables' keys. The values come from [prerequisites 2](#prerequisites).
+- AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET.
+- Go to `teamsapp.yml` file, in `deploy` stage, the placeholders wrapped in \${{}} are the needed variables' keys. 
+If you used Teams Toolkit's "**provision**" command, you can find the values in /env files.
 
   Below is an example of `teamsapp.yml`, the "BOT_AZURE_APP_SERVICE_RESOURCE_ID" needs to be set in the repo variable.
   ![image](../img/teamsappyml.jpg)
-- Go to `appPackage/manifest.json` file, the placeholders wrapped in \${{}} are the needed variables' keys. The values come from [prerequisites 1](#prerequisites). 
+- Go to `appPackage/manifest.json` file, the placeholders wrapped in \${{}} are the needed variables' keys. If you used Teams Toolkit's "**provision**" command, you can find the values in /env files.
 
   Below is an example of `manifest.json` snippet, the "TEAMS_APP_ID" needs to be set in the repo variable.
   ![image](../img/manifest.jpg)
-  > If you used Teams Toolkit's "**provision**" command to create Azure resources and Teams app resources, you can find the values of these variables in your project's /env files.
 
 Therefore for the above example, you need to set the following variables in the repo.
 
-  | key name                                              | value                      |
-  |---------------------------------------------------|-------------------------------|
-  | AZURE_SERVICE_PRINCIPAL_CLIENT_ID                 | prerequisites 3 |
-  | AZURE_TENANT_ID                                   | prerequisites 3 |
-  | AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET             | prerequisites 3 |
-  | BOT_AZURE_APP_SERVICE_RESOURCE_ID | prerequisites 2                    |
-  | TEAMS_APP_ID                 | prerequisites 1                    |
+  | key name                                          | 
+  |---------------------------------------------------|
+  | AZURE_SERVICE_PRINCIPAL_CLIENT_ID                 | 
+  | AZURE_TENANT_ID                                   | 
+  | AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET             | 
+  | BOT_AZURE_APP_SERVICE_RESOURCE_ID | 
+  | TEAMS_APP_ID                 | 
 
 You can set variables/secrets in repo's "Settings"->"Secrets and variables"->"Actions"
 ![action](../img/action.jpg)
@@ -129,9 +129,8 @@ Taking above as an example, you need to modify your pipeline's yml file as:
 Push code to the repo to trigger pipeline. 
 > You don't need to commit env files under env/ folder into the repo. The env needed for running CI/CD pipeline are already set in the repo variables.
 
-The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
-
-After the pipeline runs successfully you should see from the log that code has been deployed to Azure and the appPackage has been generated in artifacts. You can use this appPackage to [distribute your app](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).
+The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. After the pipeline runs successfully you should see from the log that code has been deployed to Azure and the appPackage has been generated in artifacts.
+![artifacts](../img/artifact.png)
 
 ### Set up pipeline with Azure DevOps
 #### 1. Create a CD yml in your project
@@ -178,12 +177,13 @@ After pushing your code to repo. Go to **Pipelines**, and then select **New pipe
 
 #### 3. Set variables/secrets in pipeline 
 The following variables and secrets are needed for the pipeline:
-- AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET, see [prerequisites 3](#prerequisites).
-- Go to `teamsapp.yml` file, in `deploy` stage, the placeholders wrapped in \${{}} are the needed variables' keys. The values come from [prerequisites 2](#prerequisites).
+- AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET.
+- Go to `teamsapp.yml` file, in `deploy` stage, the placeholders wrapped in \${{}} are the needed variables' keys. 
+If you used Teams Toolkit's "**provision**" command, you can find the values in /env files.
 
   Below is an example of `teamsapp.yml`, the "BOT_AZURE_APP_SERVICE_RESOURCE_ID" needs to be set in the repo variable.
   ![image](../img/teamsappyml.jpg)
-- Go to `appPackage/manifest.json` file, the placeholders wrapped in \${{}} are the needed variables' keys. The values come from [prerequisites 1](#prerequisites). 
+- Go to `appPackage/manifest.json` file, the placeholders wrapped in \${{}} are the needed variables' keys. If you used Teams Toolkit's "**provision**" command, you can find the values in /env files. 
 
   Below is an example of `manifest.json` snippet, the "TEAMS_APP_ID" needs to be set in the repo variable.
   ![image](../img/manifest.jpg)
@@ -191,27 +191,28 @@ The following variables and secrets are needed for the pipeline:
 
 Therefore for the above example, you need to set the following variables in the pipeline.
 
-  | key name                                              | value                      |
-  |---------------------------------------------------|-------------------------------|
-  | AZURE_SERVICE_PRINCIPAL_CLIENT_ID                 | prerequisites 3 |
-  | AZURE_TENANT_ID                                   | prerequisites 3 |
-  | AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET             | prerequisites 3 |
-  | BOT_AZURE_APP_SERVICE_RESOURCE_ID | prerequisites 2                    |
-  | TEAMS_APP_ID                 | prerequisites 1                    |
+  | key name                                          | 
+  |---------------------------------------------------|
+  | AZURE_SERVICE_PRINCIPAL_CLIENT_ID                 | 
+  | AZURE_TENANT_ID                                   | 
+  | AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET             | 
+  | BOT_AZURE_APP_SERVICE_RESOURCE_ID | 
+  | TEAMS_APP_ID                 | 
 
 For setting variables in your pipeline, go to your pipeline and click **Edit**-> **Variables**.
 #### 4. Run the pipeline
 Push code to the repo to trigger pipeline. 
 > You don't need to commit env files under env/ folder into the repo. The env needed for running CI/CD pipeline are already set in the pipeline variables.
 
-After the pipeline runs successfully you should see from the log that code deployed to Azure and the appPackage has been generated in artifacts. You can use this appPackage to [distribute your app](https://learn.microsoft.com/en-us/microsoftteams/platform/concepts/deploy-and-publish/apps-publish-overview).
+After the pipeline runs successfully you should see from the log that code deployed to Azure and the appPackage has been generated in artifacts. 
+![artifact](../img/published.png)
 
 
 ## Set up CI/CD pipelines using your own workflow
 
-The most convenient way to deploy teams app to Azure is using [teamsapp CLI](https://learn.microsoft.com/en-us/microsoftteams/platform/toolkit/teams-toolkit-cli?pivots=version-three)'s `teamsapp deploy` command. However, if you're unable to leverage the Teams App CLI within your pipeline, you can create a custom deployment process tailored to your needs.
+If you're unable to leverage the Teams App CLI within your pipeline, you can create a custom deployment process tailored to your needs. This document offers guidance on how to deploy to Azure using custom methods. If you are using a different cloud platform, you can also refer to this document for guidance.
 
-> If you already have a complete CI/CD pipeline in place for deploying to your Azure resource, your Teams app requires reading environment variables during runtime, you need to configure these environment variables in your Azure resource's settings. You can refer directly to [Prepare app package](#prepare-the-apppackage-for-the-teams-app) section for testing after deployment. 
+> If you already have a complete CI/CD pipeline in place for deploying to your Azure resource, your Teams app requires reading environment variables during runtime, you need to configure these environment variables in your Azure resource's settings. You can refer directly to [Generate app package](#generate-the-apppackage-for-the-teams-app) section for testing after deployment. 
 
 The `teamsapp deploy` command executes the actions in teamsapp.yml's "deploy" stage. Most of the "deploy" stages consist of "build" and "deploy" actions. To create a custom deployment method, you need to rewrite these actions according to your requirements and preferences.
 
