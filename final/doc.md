@@ -18,7 +18,6 @@ You can use [Teams Toolkit CLI](https://learn.microsoft.com/en-us/microsoftteams
  
 ### Prerequisites
 
-> If you already ran Teams Toolkit’s “**provision**” command, you can skip prerequisites 1 and 2.
     
 1.	Prepare Teams app needed resources.
 
