@@ -128,7 +128,7 @@ Taking above as an example, you need to modify your pipeline's yml file as:
 Push code to the repo to trigger pipeline. 
 > You don't need to commit env files under env/ folder into the repo. The env needed for running CI/CD pipeline are already set in the repo variables.
 
-The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. After the pipeline runs successfully you should see from the log that code has been deployed to Azure and the appPackage has been generated in artifacts.
+After the pipeline runs successfully you should see from the log that code has been deployed to Azure and the appPackage has been generated in artifacts.
 ![artifacts](../img/artifact.png)
 
 ### Set up pipeline with Azure DevOps
