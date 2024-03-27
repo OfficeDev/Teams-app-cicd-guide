@@ -33,6 +33,7 @@ You can use [Teams Toolkit CLI](https://learn.microsoft.com/en-us/microsoftteams
     -	[Create service principal using Azure CLI](https://learn.microsoft.com/en-us/cli/azure/azure-cli-sp-tutorial-1?tabs=bash#create-a-service-principal-with-role-and-scope)
     
     Teamsapp cli currently supports login to Azure using service principal secret. [Create a secret](https://learn.microsoft.com/en-us/entra/identity-platform/howto-create-service-principal-portal#option-3-create-a-new-client-secret) and save service principal’s **client id**, **client secret**, **tenant id** for following steps.
+![serviceprincipal](../img/serviceprincipal.png)
 
 4. Prepare a GitHub/Azure repository.
 
@@ -45,7 +46,7 @@ Create a cd.yml file under .github/workflows/ folder.  Write the following conte
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -89,7 +90,7 @@ jobs:
           name: artifact
           path: appPackage/build/appPackage.zip
 ```
->The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
+>The default pipeline will be triggered when push events happen on main branch, you can modify it to meet your own needs. 
 
 #### 2. Set variables/secrets in the repository
 The following variables and secrets are needed for the pipeline:
@@ -118,8 +119,10 @@ You can set variables/secrets in repo's "Settings"->"Secrets and variables"->"Ac
 ![action](../img/action.jpg)
 > The  AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET should be set as secret.
 
+> You can leverage [GitHub environment](https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment#environment-variables) if you want to use different sets of variables.
 
-The variables wrapped in ${{}} in teamsapp.yml and appPackage/manifest.json need to be explicitly added to env so that teamsapp cli can read them.
+
+You need to add variables set in repository explicitly into your yml file **except** these 3: AZURE_SERVICE_PRINCIPAL_CLIENT_ID, AZURE_TENANT_ID, AZURE_SERVICE_PRINCIPAL_CLIENT_SECRET.    
 
 Taking above as an example, you need to modify your pipeline's yml file as:
 ![modification](../img/modification.jpg)
@@ -136,7 +139,7 @@ After the pipeline runs successfully you should see from the log that code has b
 Create a yml file under your project. Write the following content into this yml file.
 ```yml
 trigger:
-  - master
+  - main
 
 pool:
   vmImage: ubuntu-latest
@@ -169,7 +172,7 @@ steps:
   - publish: $(System.DefaultWorkingDirectory)/appPackage/build/appPackage.zip
     artifact: artifact
 ```
->The default pipeline will be triggered when push events happen on master branch, you can modify it to meet your own needs. 
+>The default pipeline will be triggered when push events happen on main branch, you can modify it to meet your own needs. 
 
 #### 2. Setup Azure pipeline
 After pushing your code to repo. Go to **Pipelines**, and then select **New pipeline**. Select your repo and select your existing yml file to configure your pipeline.
